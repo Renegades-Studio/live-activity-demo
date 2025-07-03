@@ -1,6 +1,6 @@
-import { NativeModule, requireNativeModule } from 'expo';
+import { NativeModule, requireNativeModule } from "expo";
 
-import { LiveActivityInterfaceModuleEvents } from './LiveActivityInterface.types';
+import { LiveActivityInterfaceModuleEvents } from "./LiveActivityInterface.types";
 
 declare class LiveActivityInterfaceModule extends NativeModule<LiveActivityInterfaceModuleEvents> {
   PI: number;
@@ -9,4 +9,6 @@ declare class LiveActivityInterfaceModule extends NativeModule<LiveActivityInter
 }
 
 // This call loads the native module object from the JSI.
-export default requireNativeModule<LiveActivityInterfaceModule>('LiveActivityInterface');
+export default requireNativeModule<LiveActivityInterfaceModule>(
+  "LiveActivityInterface"
+);
