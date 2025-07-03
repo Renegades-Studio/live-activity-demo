@@ -3,18 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
+		57D949E48703D7DE063DD0E7 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5B476A6938798AA333E466 /* ExpoModulesProvider.swift */; };
+		5DEBDA67F07A8A4FC7CB5ADE /* libPods-liveactivitydemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D8242DDCEEA29A5611C74764 /* libPods-liveactivitydemo.a */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
-		E1C1865D80D1C7DC245017AE /* libPods-liveactivitydemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6926FD121822739A054BA970 /* libPods-liveactivitydemo.a */; };
-		E365AAFF5E417EE1CB331188 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = D0F293AE689380C27130D22F /* PrivacyInfo.xcprivacy */; };
 		F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11748412D0307B40044C1D9 /* AppDelegate.swift */; };
-		F3851A75CFFCEF75D27BF817 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14026172A23641AF492D9293 /* ExpoModulesProvider.swift */; };
-		XX09E725E164C2787243F7XX /* widget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = XXD26DB380DB6D7349BA89XX /* widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		FB45D784A074DFAF7F712E11 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 778C6E6B945EAA12BD6464F9 /* PrivacyInfo.xcprivacy */; };
+		XX04F252D4CA9B23871AD7XX /* Live Activity.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = XX2767BE96D6860D9307B1XX /* Live Activity.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		XX12B55A1EDABF083C3B51XX /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = XX470101BAEB8E0BBC8B0DXX /* WidgetKit.framework */; };
 		XX1A6800511A685AB346D2XX /* AppIntents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = XXA12889081EB894481655XX /* AppIntents.framework */; };
 		XX3C562DEF346B45594832XX /* ActivityKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = XXCAF23C3FC41F82140FA1XX /* ActivityKit.framework */; };
@@ -22,12 +22,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		XXE676F3CB1EE4EA1A8450XX /* PBXContainerItemProxy */ = {
+		XXB87ECD21DEE3A5E18D09XX /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = XX5429C2FB652AC88B9207XX;
-			remoteInfo = widget;
+			remoteGlobalIDString = XX8DF58A600D4B17ADA626XX;
+			remoteInfo = "Live Activity";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -38,7 +38,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				XX09E725E164C2787243F7XX /* widget.appex in Embed Foundation Extensions */,
+				XX04F252D4CA9B23871AD7XX /* Live Activity.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -49,44 +49,49 @@
 		13B07F961A680F5B00A75B9A /* liveactivitydemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; fileEncoding = 4; includeInIndex = 0; path = liveactivitydemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = liveactivitydemo/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; name = Info.plist; path = liveactivitydemo/Info.plist; sourceTree = "<group>"; };
-		14026172A23641AF492D9293 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-liveactivitydemo/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		1A7CF3E705D860A4092220A0 /* Pods-liveactivitydemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-liveactivitydemo.release.xcconfig"; path = "Target Support Files/Pods-liveactivitydemo/Pods-liveactivitydemo.release.xcconfig"; sourceTree = "<group>"; };
-		5F05C408FE62E384F0E07613 /* Pods-liveactivitydemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-liveactivitydemo.debug.xcconfig"; path = "Target Support Files/Pods-liveactivitydemo/Pods-liveactivitydemo.debug.xcconfig"; sourceTree = "<group>"; };
-		6926FD121822739A054BA970 /* libPods-liveactivitydemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-liveactivitydemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		778C6E6B945EAA12BD6464F9 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = liveactivitydemo/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		8D5B476A6938798AA333E466 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-liveactivitydemo/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = liveactivitydemo/SplashScreen.storyboard; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
-		D0F293AE689380C27130D22F /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = liveactivitydemo/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		C665F18A8358FBC33DD0BFC3 /* Pods-liveactivitydemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-liveactivitydemo.debug.xcconfig"; path = "Target Support Files/Pods-liveactivitydemo/Pods-liveactivitydemo.debug.xcconfig"; sourceTree = "<group>"; };
+		CD02E95603D270C1E69769AD /* Pods-liveactivitydemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-liveactivitydemo.release.xcconfig"; path = "Target Support Files/Pods-liveactivitydemo/Pods-liveactivitydemo.release.xcconfig"; sourceTree = "<group>"; };
+		D8242DDCEEA29A5611C74764 /* libPods-liveactivitydemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-liveactivitydemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = undefined; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F11748412D0307B40044C1D9 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = liveactivitydemo/AppDelegate.swift; sourceTree = "<group>"; };
 		F11748442D0722820044C1D9 /* liveactivitydemo-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "liveactivitydemo-Bridging-Header.h"; path = "liveactivitydemo/liveactivitydemo-Bridging-Header.h"; sourceTree = "<group>"; };
-		XX470101BAEB8E0BBC8B0DXX /* WidgetKit.framework */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
-		XX4DFF38D47332D6BF0183XX /* SwiftUI.framework */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		XXA12889081EB894481655XX /* AppIntents.framework */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = AppIntents.framework; path = System/Library/Frameworks/AppIntents.framework; sourceTree = SDKROOT; };
-		XXCAF23C3FC41F82140FA1XX /* ActivityKit.framework */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = ActivityKit.framework; path = System/Library/Frameworks/ActivityKit.framework; sourceTree = SDKROOT; };
-		XXD26DB380DB6D7349BA89XX /* widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; fileEncoding = 4; includeInIndex = 0; path = widget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		XX2767BE96D6860D9307B1XX /* Live Activity.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; fileEncoding = 4; includeInIndex = 0; path = "Live Activity.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		XX470101BAEB8E0BBC8B0DXX /* WidgetKit.framework */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = undefined; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		XX4DFF38D47332D6BF0183XX /* SwiftUI.framework */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = undefined; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		XXA12889081EB894481655XX /* AppIntents.framework */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = undefined; lastKnownFileType = wrapper.framework; name = AppIntents.framework; path = System/Library/Frameworks/AppIntents.framework; sourceTree = SDKROOT; };
+		XXCAF23C3FC41F82140FA1XX /* ActivityKit.framework */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = undefined; lastKnownFileType = wrapper.framework; name = ActivityKit.framework; path = System/Library/Frameworks/ActivityKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		8501C0AD2E16143B0017DE87 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		XX948F1A9AF9B66ED74E69XX /* Exceptions for "widget" folder in "Live Activity" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Attributes.swift,
-				Services/Font.swift,
-			);
-			target = 13B07F861A680F5B00A75B9A /* liveactivitydemo */;
-		};
-		XX5DEC793F367F9B490112XX /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"expo-target.config.js",
 				Info.plist,
+				"expo-target.config.js",
 			);
-			target = XX5429C2FB652AC88B9207XX /* widget */;
+			target = XX8DF58A600D4B17ADA626XX /* Live Activity */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		XXD4894A46807343927F2BXX /* widget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (8501C0AD2E16143B0017DE87 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, XX5DEC793F367F9B490112XX /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = widget; sourceTree = "<group>"; };
+		XX287677D6F9D18EA2EF2DXX /* widget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				XX948F1A9AF9B66ED74E69XX /* Exceptions for "widget" folder in "Live Activity" target */,
+			);
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+				assets/Assets.xcassets,
+				assets/Fonts,
+			);
+			path = widget;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1C1865D80D1C7DC245017AE /* libPods-liveactivitydemo.a in Frameworks */,
+				5DEBDA67F07A8A4FC7CB5ADE /* libPods-liveactivitydemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,15 +126,7 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				D0F293AE689380C27130D22F /* PrivacyInfo.xcprivacy */,
-			);
-			name = liveactivitydemo;
-			sourceTree = "<group>";
-		};
-		18F0AB37082DF72F1C720D54 /* liveactivitydemo */ = {
-			isa = PBXGroup;
-			children = (
-				14026172A23641AF492D9293 /* ExpoModulesProvider.swift */,
+				778C6E6B945EAA12BD6464F9 /* PrivacyInfo.xcprivacy */,
 			);
 			name = liveactivitydemo;
 			sourceTree = "<group>";
@@ -142,17 +139,18 @@
 				XX4DFF38D47332D6BF0183XX /* SwiftUI.framework */,
 				XXCAF23C3FC41F82140FA1XX /* ActivityKit.framework */,
 				XXA12889081EB894481655XX /* AppIntents.framework */,
-				6926FD121822739A054BA970 /* libPods-liveactivitydemo.a */,
+				D8242DDCEEA29A5611C74764 /* libPods-liveactivitydemo.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		66FDF8AD3797C97BA1227C2B /* Pods */ = {
+		37B0A6663DED3AE7B7106FC8 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				5F05C408FE62E384F0E07613 /* Pods-liveactivitydemo.debug.xcconfig */,
-				1A7CF3E705D860A4092220A0 /* Pods-liveactivitydemo.release.xcconfig */,
+				C665F18A8358FBC33DD0BFC3 /* Pods-liveactivitydemo.debug.xcconfig */,
+				CD02E95603D270C1E69769AD /* Pods-liveactivitydemo.release.xcconfig */,
 			);
+			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -171,8 +169,8 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				66FDF8AD3797C97BA1227C2B /* Pods */,
-				D8D1ED0E69881754F8FB856E /* ExpoModulesProviders */,
+				37B0A6663DED3AE7B7106FC8 /* Pods */,
+				D98EA0360863B35C40347B3D /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -183,7 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* liveactivitydemo.app */,
-				XXD26DB380DB6D7349BA89XX /* widget.appex */,
+				XX2767BE96D6860D9307B1XX /* Live Activity.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -197,10 +195,18 @@
 			path = liveactivitydemo/Supporting;
 			sourceTree = "<group>";
 		};
-		D8D1ED0E69881754F8FB856E /* ExpoModulesProviders */ = {
+		C8788CCDB649B09762DAD810 /* liveactivitydemo */ = {
 			isa = PBXGroup;
 			children = (
-				18F0AB37082DF72F1C720D54 /* liveactivitydemo */,
+				8D5B476A6938798AA333E466 /* ExpoModulesProvider.swift */,
+			);
+			name = liveactivitydemo;
+			sourceTree = "<group>";
+		};
+		D98EA0360863B35C40347B3D /* ExpoModulesProviders */ = {
+			isa = PBXGroup;
+			children = (
+				C8788CCDB649B09762DAD810 /* liveactivitydemo */,
 			);
 			name = ExpoModulesProviders;
 			sourceTree = "<group>";
@@ -208,7 +214,7 @@
 		XX3E41C1850246162C0061XX /* expo:targets */ = {
 			isa = PBXGroup;
 			children = (
-				XXD4894A46807343927F2BXX /* widget */,
+				XX287677D6F9D18EA2EF2DXX /* widget */,
 			);
 			name = "expo:targets";
 			path = ../targets;
@@ -222,28 +228,28 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "liveactivitydemo" */;
 			buildPhases = (
 				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
-				51C19BA28DDE2B857AC91D7F /* [Expo] Configure project */,
+				9BF2C0B867B95F022E9550E0 /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
 				XX72A8CFBF0FBA13A79902XX /* Embed Foundation Extensions */,
-				0A20C70AEAADBFB109A9E3C4 /* [CP] Embed Pods Frameworks */,
+				DFA7337A362C91A0872D2B74 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				XXBF7AA3973058AFE80F10XX /* PBXTargetDependency */,
+				XX07C2C673E0A556C6B20AXX /* PBXTargetDependency */,
 			);
 			name = liveactivitydemo;
 			productName = liveactivitydemo;
 			productReference = 13B07F961A680F5B00A75B9A /* liveactivitydemo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		XX5429C2FB652AC88B9207XX /* widget */ = {
+		XX8DF58A600D4B17ADA626XX /* Live Activity */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = XX07469A7FF9E23011ABFAXX /* Build configuration list for PBXNativeTarget "widget" */;
+			buildConfigurationList = XXD4BB6DCFBDB514E20CC8XX /* Build configuration list for PBXNativeTarget "Live Activity" */;
 			buildPhases = (
 				XX074B8811C1CF8E8A3D74XX /* Frameworks */,
 				XXE45443DC38DCFE1DB622XX /* Sources */,
@@ -254,11 +260,11 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				XXD4894A46807343927F2BXX /* widget */,
+				XX287677D6F9D18EA2EF2DXX /* widget */,
 			);
-			name = widget;
-			productName = widget;
-			productReference = XXD26DB380DB6D7349BA89XX /* widget.appex */;
+			name = "Live Activity";
+			productName = LiveActivity;
+			productReference = XX2767BE96D6860D9307B1XX /* Live Activity.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -272,7 +278,7 @@
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1250;
 					};
-					XX5429C2FB652AC88B9207XX = {
+					XX8DF58A600D4B17ADA626XX = {
 						CreatedOnToolsVersion = 14.3;
 						DevelopmentTeam = 5SJXK598L4;
 						ProvisioningStyle = Automatic;
@@ -293,7 +299,7 @@
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* liveactivitydemo */,
-				XX5429C2FB652AC88B9207XX /* widget */,
+				XX8DF58A600D4B17ADA626XX /* Live Activity */,
 			);
 		};
 /* End PBXProject section */
@@ -306,7 +312,7 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				E365AAFF5E417EE1CB331188 /* PrivacyInfo.xcprivacy in Resources */,
+				FB45D784A074DFAF7F712E11 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,43 +367,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		0A20C70AEAADBFB109A9E3C4 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-liveactivitydemo/Pods-liveactivitydemo-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-liveactivitydemo/Pods-liveactivitydemo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		51C19BA28DDE2B857AC91D7F /* [Expo] Configure project */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "[Expo] Configure project";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-liveactivitydemo/expo-configure-project.sh\"\n";
-		};
 		800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -434,6 +403,43 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-liveactivitydemo/Pods-liveactivitydemo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		9BF2C0B867B95F022E9550E0 /* [Expo] Configure project */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[Expo] Configure project";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-liveactivitydemo/expo-configure-project.sh\"\n";
+		};
+		DFA7337A362C91A0872D2B74 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-liveactivitydemo/Pods-liveactivitydemo-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-liveactivitydemo/Pods-liveactivitydemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -442,7 +448,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */,
-				F3851A75CFFCEF75D27BF817 /* ExpoModulesProvider.swift in Sources */,
+				57D949E48703D7DE063DD0E7 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,17 +462,17 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		XXBF7AA3973058AFE80F10XX /* PBXTargetDependency */ = {
+		XX07C2C673E0A556C6B20AXX /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = XX5429C2FB652AC88B9207XX /* widget */;
-			targetProxy = XXE676F3CB1EE4EA1A8450XX /* PBXContainerItemProxy */;
+			target = XX8DF58A600D4B17ADA626XX /* Live Activity */;
+			targetProxy = XXB87ECD21DEE3A5E18D09XX /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5F05C408FE62E384F0E07613 /* Pods-liveactivitydemo.debug.xcconfig */;
+			baseConfigurationReference = C665F18A8358FBC33DD0BFC3 /* Pods-liveactivitydemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -503,7 +509,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1A7CF3E705D860A4092220A0 /* Pods-liveactivitydemo.release.xcconfig */;
+			baseConfigurationReference = CD02E95603D270C1E69769AD /* Pods-liveactivitydemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -587,7 +593,10 @@
 				LIBRARY_SEARCH_PATHS = "$(SDKROOT)/usr/lib/swift\"$(inherited)\"";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "$(inherited)  ";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
@@ -642,7 +651,10 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(SDKROOT)/usr/lib/swift\"$(inherited)\"";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "$(inherited)  ";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -650,7 +662,7 @@
 			};
 			name = Release;
 		};
-		XX991560C50169617137C1XX /* Debug */ = {
+		XXA056ADFAE846AFDCA228XX /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
@@ -668,7 +680,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ../targets/widget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = widget;
+				INFOPLIST_KEY_CFBundleDisplayName = "Live Activity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -691,7 +703,7 @@
 			};
 			name = Debug;
 		};
-		XXA5528D3BCE3FA4466FEEXX /* Release */ = {
+		XXEE7F70B609ABA332AB45XX /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
@@ -710,7 +722,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ../targets/widget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = widget;
+				INFOPLIST_KEY_CFBundleDisplayName = "Live Activity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -753,11 +765,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		XX07469A7FF9E23011ABFAXX /* Build configuration list for PBXNativeTarget "widget" */ = {
+		XXD4BB6DCFBDB514E20CC8XX /* Build configuration list for PBXNativeTarget "Live Activity" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				XX991560C50169617137C1XX /* Debug */,
-				XXA5528D3BCE3FA4466FEEXX /* Release */,
+				XXA056ADFAE846AFDCA228XX /* Debug */,
+				XXEE7F70B609ABA332AB45XX /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
