@@ -1,9 +1,10 @@
 {
-  "platforms": ["apple", "android", "web"],
+  "platforms": [
+    "apple"
+  ],
   "apple": {
-    "modules": ["LiveActivityInterfaceModule"]
-  },
-  "android": {
-    "modules": ["expo.modules.liveactivityinterface.LiveActivityInterfaceModule"]
+    "modules": [
+      "LiveActivityInterfaceModule"
+    ]
   }
 }

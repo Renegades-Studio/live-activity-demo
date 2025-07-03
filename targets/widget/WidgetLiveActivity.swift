@@ -100,7 +100,6 @@ struct YapsterActivityView: View {
   }
 }
 
-
 struct YapsterIslandBottom: View {
   let context: ActivityViewContext<WidgetAttributes>
   @Environment(\.colorScheme) var colorScheme

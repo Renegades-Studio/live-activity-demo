@@ -1,19 +1,14 @@
-import { registerWebModule, NativeModule } from 'expo';
+import { Platform, requireNativeModule } from "expo-modules-core";
 
-import { ChangeEventPayload } from './LiveActivityInterface.types';
-
-type LiveActivityInterfaceModuleEvents = {
-  onChange: (params: ChangeEventPayload) => void;
-}
-
-class LiveActivityInterfaceModule extends NativeModule<LiveActivityInterfaceModuleEvents> {
-  PI = Math.PI;
-  async setValueAsync(value: string): Promise<void> {
-    this.emit('onChange', { value });
-  }
-  hello() {
-    return 'Hello world! 👋';
-  }
+const fallback = {
+  getPushToStartToken() {
+    return "";
+  },
+  getPushToUpdateToken() {
+    return "";
+  },
 };
 
-export default registerWebModule(LiveActivityInterfaceModule, 'LiveActivityInterfaceModule');
+export default Platform.OS === "ios"
+  ? requireNativeModule("LiveActivityInterface")
+  : fallback;
