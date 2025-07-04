@@ -110,3 +110,14 @@ modules/react-native-haptics/android/build
 modules/live-activity-control/android/build
 
 google-services.json
+
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+ios/
+android
