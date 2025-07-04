@@ -1,11 +1,31 @@
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
-import React, { useState } from "react";
+import React from "react";
 import { Alert, Platform, StyleSheet } from "react-native";
 
-export default function HomeScreen() {
-  const [isActivityActive, setIsActivityActive] = useState(false);
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
+import { useLiveActivity } from "@/hooks/useLiveActivity";
+import { createSampleLiveActivityData } from "@/services/apnsService";
+import type { LiveActivityData } from "@/types/liveActivity";
 
+/**
+ * Main screen component demonstrating Live Activities with APNs
+ */
+export default function LiveActivityDemoScreen() {
+  const {
+    isActive,
+    isLoading,
+    isTokenReady,
+    hasStartToken,
+    hasUpdateToken,
+    tokenSource,
+    startLiveActivity,
+    updateLiveActivity,
+    endLiveActivity,
+  } = useLiveActivity();
+
+  /**
+   * Handle starting a live activity
+   */
   const handleStartLiveActivity = async () => {
     try {
       if (Platform.OS !== "ios") {
@@ -16,19 +36,31 @@ export default function HomeScreen() {
         return;
       }
 
-      setIsActivityActive(true);
-      Alert.alert("Success", "Live Activity started!");
+      const data: LiveActivityData = createSampleLiveActivityData(
+        10,
+        "Live Activity Demo"
+      );
+      await startLiveActivity(data);
+
+      Alert.alert(
+        "Success",
+        "Live Activity started! Check your Dynamic Island."
+      );
     } catch (error) {
       Alert.alert("Error", `Failed to start Live Activity: ${error}`);
     }
   };
 
+  /**
+   * Handle updating an active live activity
+   */
   const handleUpdateLiveActivity = async () => {
     try {
-      if (!isActivityActive) {
-        Alert.alert("No Active Activity", "Please start a Live Activity first");
-        return;
-      }
+      const data: LiveActivityData = createSampleLiveActivityData(
+        5,
+        "Updated Live Activity"
+      );
+      await updateLiveActivity(data);
 
       Alert.alert("Success", "Live Activity updated!");
     } catch (error) {
@@ -36,14 +68,12 @@ export default function HomeScreen() {
     }
   };
 
+  /**
+   * Handle ending an active live activity
+   */
   const handleEndLiveActivity = async () => {
     try {
-      if (!isActivityActive) {
-        Alert.alert("No Active Activity", "No Live Activity to end");
-        return;
-      }
-
-      setIsActivityActive(false);
+      await endLiveActivity();
       Alert.alert("Success", "Live Activity ended!");
     } catch (error) {
       Alert.alert("Error", `Failed to end Live Activity: ${error}`);
@@ -52,62 +82,188 @@ export default function HomeScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Live Activity Demo</ThemedText>
-        <ThemedText style={styles.subtitle}>
-          Test Live Activities on iOS with the buttons below
-        </ThemedText>
-      </ThemedView>
-
-      <ThemedView style={styles.statusContainer}>
-        <ThemedText type="defaultSemiBold">
-          Status: {isActivityActive ? "🟢 Active" : "🔴 Inactive"}
-        </ThemedText>
-      </ThemedView>
-
-      <ThemedView style={styles.buttonContainer}>
-        <ThemedView style={[styles.button, styles.startButton]}>
-          <ThemedText
-            style={styles.buttonText}
-            onPress={handleStartLiveActivity}
-          >
-            Start Live Activity
-          </ThemedText>
-        </ThemedView>
-
-        <ThemedView style={[styles.button, styles.updateButton]}>
-          <ThemedText
-            style={styles.buttonText}
-            onPress={handleUpdateLiveActivity}
-          >
-            Update Live Activity
-          </ThemedText>
-        </ThemedView>
-
-        <ThemedView style={[styles.button, styles.endButton]}>
-          <ThemedText style={styles.buttonText} onPress={handleEndLiveActivity}>
-            End Live Activity
-          </ThemedText>
-        </ThemedView>
-      </ThemedView>
-
-      <ThemedView style={styles.infoContainer}>
-        <ThemedText style={styles.infoText}>
-          • Live Activities are only available on iOS 16.1+
-        </ThemedText>
-        <ThemedText style={styles.infoText}>
-          • Start creates a countdown timer for 10 minutes
-        </ThemedText>
-        <ThemedText style={styles.infoText}>
-          • Update changes the countdown to 5 minutes
-        </ThemedText>
-        <ThemedText style={styles.infoText}>
-          • End removes the Live Activity
-        </ThemedText>
-      </ThemedView>
+      <Header />
+      <StatusSection
+        isActive={isActive}
+        isTokenReady={isTokenReady}
+        hasStartToken={hasStartToken}
+        tokenSource={tokenSource}
+      />
+      <ButtonSection
+        isActive={isActive}
+        isLoading={isLoading}
+        isTokenReady={isTokenReady}
+        hasStartToken={hasStartToken}
+        hasUpdateToken={hasUpdateToken}
+        onStart={handleStartLiveActivity}
+        onUpdate={handleUpdateLiveActivity}
+        onEnd={handleEndLiveActivity}
+      />
+      <InfoSection />
     </ThemedView>
   );
 }
+
+/**
+ * Header component with title and description
+ */
+const Header = () => (
+  <ThemedView style={styles.titleContainer}>
+    <ThemedText type="title">Live Activity Demo</ThemedText>
+    <ThemedText style={styles.subtitle}>
+      Demonstrates APNs-based Live Activities on iOS
+    </ThemedText>
+  </ThemedView>
+);
+
+/**
+ * Status section showing current state
+ */
+interface StatusSectionProps {
+  isActive: boolean;
+  isTokenReady: boolean;
+  hasStartToken: boolean;
+  tokenSource: "fresh" | "cached" | null;
+}
+
+const StatusSection = ({
+  isActive,
+  isTokenReady,
+  hasStartToken,
+  tokenSource,
+}: StatusSectionProps) => (
+  <ThemedView style={styles.statusContainer}>
+    <ThemedText type="defaultSemiBold">
+      Status: {isActive ? "🟢 Active" : "🔴 Inactive"}
+    </ThemedText>
+    <ThemedText style={styles.tokenStatus}>
+      Initialization: {!isTokenReady ? "⏳ Loading..." : "✅ Ready"}
+    </ThemedText>
+    {isTokenReady && (
+      <>
+        <ThemedText style={styles.tokenStatus}>
+          Push Token: {hasStartToken ? "✅ Available" : "❌ Not Available"}
+        </ThemedText>
+        {hasStartToken && tokenSource && (
+          <ThemedText style={styles.tokenStatus}>
+            Token Source:{" "}
+            {tokenSource === "fresh"
+              ? "🆕 Fresh"
+              : tokenSource === "cached"
+              ? "💾 Cached"
+              : "❓ Unknown"}
+          </ThemedText>
+        )}
+      </>
+    )}
+  </ThemedView>
+);
+
+/**
+ * Button section with all Live Activity controls
+ */
+interface ButtonSectionProps {
+  isActive: boolean;
+  isLoading: boolean;
+  isTokenReady: boolean;
+  hasStartToken: boolean;
+  hasUpdateToken: boolean;
+  onStart: () => void;
+  onUpdate: () => void;
+  onEnd: () => void;
+}
+
+const ButtonSection = ({
+  isActive,
+  isLoading,
+  isTokenReady,
+  hasStartToken,
+  hasUpdateToken,
+  onStart,
+  onUpdate,
+  onEnd,
+}: ButtonSectionProps) => (
+  <ThemedView style={styles.buttonContainer}>
+    <ActionButton
+      title="Start Live Activity"
+      style={[styles.button, styles.startButton]}
+      onPress={onStart}
+      disabled={isLoading || isActive || !isTokenReady || !hasStartToken}
+    />
+
+    <ActionButton
+      title="Update Live Activity"
+      style={[styles.button, styles.updateButton]}
+      onPress={onUpdate}
+      disabled={isLoading || !isActive || !hasUpdateToken}
+    />
+
+    <ActionButton
+      title="End Live Activity"
+      style={[styles.button, styles.endButton]}
+      onPress={onEnd}
+      disabled={isLoading || !isActive || !hasUpdateToken}
+    />
+  </ThemedView>
+);
+
+/**
+ * Reusable action button component
+ */
+interface ActionButtonProps {
+  title: string;
+  style: any;
+  onPress: () => void;
+  disabled?: boolean;
+}
+
+const ActionButton = ({
+  title,
+  style,
+  onPress,
+  disabled,
+}: ActionButtonProps) => (
+  <ThemedView style={[style, disabled && styles.disabledButton]}>
+    <ThemedText
+      style={[styles.buttonText, disabled && styles.disabledButtonText]}
+      onPress={disabled ? undefined : onPress}
+    >
+      {title}
+    </ThemedText>
+  </ThemedView>
+);
+
+/**
+ * Information section with usage instructions
+ */
+const InfoSection = () => (
+  <ThemedView style={styles.infoContainer}>
+    <ThemedText type="defaultSemiBold" style={styles.infoTitle}>
+      How it works:
+    </ThemedText>
+    <ThemedText style={styles.infoText}>
+      • Push-to-start token initialized early in app lifecycle
+    </ThemedText>
+    <ThemedText style={styles.infoText}>
+      • Tokens are cached locally with 3-second fallback timeout
+    </ThemedText>
+    <ThemedText style={styles.infoText}>
+      • Live Activities use APNs (Apple Push Notification service)
+    </ThemedText>
+    <ThemedText style={styles.infoText}>
+      • Start creates a 10-minute countdown timer
+    </ThemedText>
+    <ThemedText style={styles.infoText}>
+      • Update changes the countdown to 5 minutes
+    </ThemedText>
+    <ThemedText style={styles.infoText}>
+      • End removes the live activity immediately
+    </ThemedText>
+    <ThemedText style={styles.infoText}>
+      • Check console for APNs payload structure
+    </ThemedText>
+  </ThemedView>
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -128,13 +284,17 @@ const styles = StyleSheet.create({
   statusContainer: {
     alignItems: "center",
     marginBottom: 40,
+    gap: 8,
+  },
+  tokenStatus: {
+    fontSize: 14,
+    opacity: 0.7,
   },
   buttonContainer: {
     gap: 20,
     marginBottom: 40,
   },
   button: {
-    backgroundColor: "#007AFF",
     paddingVertical: 16,
     paddingHorizontal: 24,
     borderRadius: 12,
@@ -157,13 +317,23 @@ const styles = StyleSheet.create({
   endButton: {
     backgroundColor: "#FF3B30",
   },
+  disabledButton: {
+    opacity: 0.5,
+    shadowOpacity: 0.1,
+  },
   buttonText: {
     color: "white",
     fontSize: 18,
     fontWeight: "600",
   },
+  disabledButtonText: {
+    opacity: 0.7,
+  },
   infoContainer: {
     gap: 8,
+  },
+  infoTitle: {
+    marginBottom: 8,
   },
   infoText: {
     fontSize: 14,

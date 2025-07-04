@@ -1,14 +1,17 @@
-import { NativeModule, requireNativeModule } from "expo";
+import { requireNativeModule } from "expo";
+import { Platform } from "react-native";
 
-import { LiveActivityInterfaceModuleEvents } from "./LiveActivityInterface.types";
+const fallback = {
+  areActivitiesEnabled: () => false,
+  startActivity(_startTime: number, _endTime: number, _title: string) {
+    return "";
+  },
+  endActivity() {},
+  getPushToStartToken() {
+    return "";
+  },
+};
 
-declare class LiveActivityInterfaceModule extends NativeModule<LiveActivityInterfaceModuleEvents> {
-  PI: number;
-  hello(): string;
-  setValueAsync(value: string): Promise<void>;
-}
-
-// This call loads the native module object from the JSI.
-export default requireNativeModule<LiveActivityInterfaceModule>(
-  "LiveActivityInterface"
-);
+export default Platform.OS === "ios"
+  ? requireNativeModule("LiveActivityInterface")
+  : fallback;

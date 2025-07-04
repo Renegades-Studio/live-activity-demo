@@ -11,7 +11,14 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "xyz.renegades.live-activity-demo",
-      "appleTeamId": "5SJXK598L4"
+      "appleTeamId": "5SJXK598L4",
+      "infoPlist": {
+        "NSSupportsLiveActivities": true,
+        "NSSupportsLiveActivitiesFrequentUpdates": true
+      },
+      "entitlements": {
+        "aps-environment": "development"
+      }
     },
     "android": {
       "adaptiveIcon": {

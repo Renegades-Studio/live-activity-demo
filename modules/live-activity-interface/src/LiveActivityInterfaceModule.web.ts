@@ -7,6 +7,9 @@ const fallback = {
   getPushToUpdateToken() {
     return "";
   },
+  startActivity() {
+    return "";
+  },
 };
 
 export default Platform.OS === "ios"
