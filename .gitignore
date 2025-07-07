@@ -97,19 +97,9 @@ builds/
 !.yarn/sdks
 !.yarn/versions
 
-!modules/hold-down-animation/ios
-!modules/hold-down-animation/android
-modules/hold-down-animation/android/build
-
-!modules/react-native-haptics/ios
-!modules/react-native-haptics/android
-modules/react-native-haptics/android/build
-
 !modules/live-activity-control/ios
 !modules/live-activity-control/android
 modules/live-activity-control/android/build
-
-google-services.json
 
 .pnp.*
 .yarn/*
