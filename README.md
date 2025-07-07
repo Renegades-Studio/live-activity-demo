@@ -4,10 +4,11 @@ A React Native Expo app demonstrating iOS Live Activities with real APNs integra
 
 ## Features
 
-- **Real Live Activities**: Start, update, and end Live Activities on iOS
-- **Token Caching**: Smart caching with fallback for fast app startup
-- **Express Server**: Local server handling real APNs notifications
-- **Automatic Environment**: Sandbox mode in development, production in builds
+- **Remote Live Activity Control**: Start Live Activities from your app and control them remotely
+- **Real-time Updates**: Update Live Activity content dynamically while it's running
+- **Dynamic Island Integration**: See your Live Activity appear in the Dynamic Island
+- **Lock Screen Widgets**: Live Activities display on the lock screen with live data
+- **Graceful Termination**: End Live Activities programmatically when done
 
 ## Quick Setup
 

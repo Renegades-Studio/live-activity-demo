@@ -1,5 +1,18 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+/**
+ * IMPORTANT: This is for demo purposes only!
+ *
+ * In a production app, Live Activity tokens should be stored on your server
+ * in a database, associated with user accounts. This allows you to:
+ * - Send notifications from your backend to multiple devices
+ * - Manage tokens centrally and handle token expiration
+ * - Support multi-device scenarios for the same user
+ *
+ * We're using local AsyncStorage here only to demonstrate the Live Activity
+ * flow without requiring a full backend user management system.
+ */
+
 // Constants for AsyncStorage
 const STORAGE_KEYS = {
   START_TOKEN: "@liveactivity_start_token",
