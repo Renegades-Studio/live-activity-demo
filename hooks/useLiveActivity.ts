@@ -15,7 +15,6 @@ export const useLiveActivity = () => {
   const startLiveActivity = useCallback(
     async (title: string, durationMinutes: number): Promise<void> => {
       if (!startToken) throw new Error("Start token not available");
-      if (isActive) throw new Error("Live activity already active");
 
       setIsLoading(true);
       try {

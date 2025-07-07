@@ -79,10 +79,10 @@ export default function LiveActivityDemoScreen() {
           style={[
             styles.button,
             styles.startButton,
-            (!isReady || isActive || isLoading) && styles.disabledButton,
+            (!isReady || isLoading) && styles.disabledButton,
           ]}
           onPress={handleStart}
-          disabled={!isReady || isActive || isLoading}
+          disabled={!isReady || isLoading}
         >
           <ThemedText style={styles.buttonText}>Start Live Activity</ThemedText>
         </TouchableOpacity>
