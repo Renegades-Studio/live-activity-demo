@@ -2,12 +2,10 @@ import { requireNativeModule } from "expo";
 import { Platform } from "react-native";
 
 const fallback = {
-  areActivitiesEnabled: () => false,
-  startActivity(_startTime: number, _endTime: number, _title: string) {
+  getPushToStartToken() {
     return "";
   },
-  endActivity() {},
-  getPushToStartToken() {
+  getPushToUpdateToken() {
     return "";
   },
 };

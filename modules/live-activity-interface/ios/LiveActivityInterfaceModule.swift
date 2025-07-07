@@ -42,34 +42,5 @@ public class LiveActivityInterfaceModule: Module {
                 promise.reject("ERR_VERSION", "iOS version is lower than 16.2. Live Activity is not available.")
             }
         }
-
-        AsyncFunction("startActivity") { (startTimeMs: Int64, endTimeMs: Int64, title: String, type: String, promise: Promise) in
-            let logger = Logger(logHandlers: [createOSLogHandler(category: Logger.EXPO_LOG_CATEGORY)])
-            logger.info("startActivity()")
-            
-            if #available(iOS 16.2, *) {
-                let attributes = WidgetAttributes()
-                var contentState: WidgetAttributes.ContentState
-                
-                contentState = WidgetAttributes.ContentState.preGame(
-                    startTimeMs: startTimeMs,
-                    endTimeMs: endTimeMs,
-                    title: title
-                )
-                
-                let activityContent = ActivityContent(state: contentState, staleDate: nil)
-                
-                do {
-                    let activity = try Activity.request(attributes: attributes, content: activityContent, pushType: .token)
-                    promise.resolve(activity.id)
-                } catch (let error) {
-                    logger.info("Error requesting Live Activity \(error.localizedDescription).")
-                    promise.reject("ERR_ACTIVITY", "Error requesting Live Activity \(error.localizedDescription).")
-                }
-            } else {
-                logger.info("iOS version is lower than 16.2. Live Activity is not available.")
-                promise.reject("ERR_VERSION", "iOS version is lower than 16.2. Live Activity is not available.")
-            }
-        }
     }
 }
