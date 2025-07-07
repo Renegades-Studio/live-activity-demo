@@ -1,51 +1,111 @@
-# Welcome to your Expo app 👋
+# Live Activity Demo
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A React Native Expo app demonstrating iOS Live Activities with real APNs integration via a local Express server.
 
-## Get started
+## Features
 
-1. Install dependencies
+- **Real Live Activities**: Start, update, and end Live Activities on iOS
+- **Token Caching**: Smart caching with fallback for fast app startup
+- **Express Server**: Local server handling real APNs notifications
+- **Automatic Environment**: Sandbox mode in development, production in builds
 
-   ```bash
-   npm install
-   ```
+## Quick Setup
 
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+### 1. Clone and Install
 
 ```bash
-npm run reset-project
+git clone <your-repo-url>
+cd live-activity-demo
+yarn install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 2. Configure APNs (Required)
 
-## Learn more
+1. Get APNs credentials from [Apple Developer Console](https://developer.apple.com)
 
-To learn more about developing your project with Expo, look at the following resources:
+   - Create an **APNs Auth Key** (.p8 file)
+   - Download the `.p8` file to your computer
+   - Note your **Key ID** and **Team ID**
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+2. Configure server environment:
 
-## Join the community
+```bash
+cd server
+cp env.example .env
+# Edit .env with your credentials
+```
 
-Join our community of developers creating universal apps.
+3. Open your downloaded `.p8` file in a text editor and copy the entire contents
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
-# live-activity-demo
+4. Paste the private key content into your `.env` file:
+
+```env
+# Paste your ENTIRE .p8 file contents here (including BEGIN/END lines)
+APN_KEY=-----BEGIN PRIVATE KEY-----
+MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQg...
+(your actual private key content)
+...
+-----END PRIVATE KEY-----
+APN_KEY_ID=ABC123DEF4
+APPLE_TEAM_ID=XYZ789ABC1
+PORT=3000
+```
+
+### 3. Start the Demo
+
+**Terminal 1 - Server:**
+
+```bash
+yarn server
+```
+
+**Terminal 2 - React Native App:**
+
+```bash
+yarn start
+# Press 'i' for iOS simulator
+```
+
+### 4. Test Live Activities
+
+1. Open the app in iOS Simulator
+2. Wait for push token to be ready
+3. Tap "Start Live Activity"
+4. Check Dynamic Island for the Live Activity
+5. Test "Update" and "End" functionality
+
+## Physical Device Testing
+
+For testing on a physical device, use ngrok to expose your local server:
+
+```bash
+# Install ngrok
+npm install -g ngrok
+
+# Expose server (in new terminal)
+ngrok http 3000
+
+# Update SERVER_BASE_URL in services/apnsService.ts to use ngrok URL
+```
+
+## How It Works
+
+1. **App loads** → Retrieves and caches push-to-start token
+2. **User taps Start** → App calls local server with token and data
+3. **Server** → Sends real APNs notification to Apple
+4. **Apple** → Delivers Live Activity to device
+5. **Updates/End** → Same flow with push-to-update token
+
+## Project Structure
+
+```
+├── app/                    # React Native app screens
+├── server/                 # Express server with APNs integration
+├── services/apnsService.ts # HTTP client for server communication
+├── contexts/               # Token management and caching
+└── modules/                # Live Activity native module
+```
+
+---
+
+**Note:** This is a demo project. Production apps would need proper authentication, error handling, and server deployment.
