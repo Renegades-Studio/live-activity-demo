@@ -74,8 +74,11 @@ export async function sendLiveActivityUpdateNotification({
     })`
   );
 
+  console.log("payload: ", payload);
+
   const notification = new apn.Notification();
-  notification.topic = "com.renegades.liveactivitydemo.push-type.liveactivity";
+  notification.topic =
+    "xyz.renegades.live-activity-demo.push-type.liveactivity";
   // @ts-ignore - pushType is not in the types but exists
   notification.pushType = "liveactivity";
   notification.priority = 5;
@@ -118,15 +121,18 @@ export async function sendLiveActivityEndNotification({
   );
 
   const notification = new apn.Notification();
-  notification.topic = "com.renegades.liveactivitydemo.push-type.liveactivity";
+  notification.topic =
+    "xyz.renegades.live-activity-demo.push-type.liveactivity";
   // @ts-ignore - pushType is not in the types but exists
   notification.pushType = "liveactivity";
-  notification.priority = 5;
+  notification.priority = 10;
 
   notification.rawPayload = {
     aps: {
       timestamp: Math.floor(Date.now() / 1000),
       event: "end",
+      "dismissal-date": Math.floor(Date.now() / 1000),
+      "content-state": {},
       alert: {
         title: "Live Activity Ended",
         body: "The live activity has been completed",

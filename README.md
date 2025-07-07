@@ -94,7 +94,7 @@ ngrok http 3000
 
 ## How It Works
 
-1. **App loads** → Retrieves and caches push-to-start token
+1. **App loads** → Gets push-to-start token
 2. **User taps Start** → App calls local server with token and data
 3. **Server** → Sends real APNs notification to Apple
 4. **Apple** → Delivers Live Activity to device
@@ -106,7 +106,7 @@ ngrok http 3000
 ├── app/                    # React Native app screens
 ├── server/                 # Express server with APNs integration
 ├── services/apnsService.ts # HTTP client for server communication
-├── contexts/               # Token management and caching
+├── contexts/               # Token management
 └── modules/                # Live Activity native module
 ```
 
