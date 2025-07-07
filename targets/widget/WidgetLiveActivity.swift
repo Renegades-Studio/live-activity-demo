@@ -26,6 +26,25 @@ struct TimerDisplay: View {
   }
 }
 
+struct TopicDisplay: View {
+  let title: String
+  let isDark: Bool
+  
+  var body: some View {
+    VStack(alignment: .leading, spacing: 4) {
+      Text("topic of the day")
+        .font(.comicSans(size: 12, weight: .bold))
+        .foregroundStyle(isDark ? .white : .black)
+        .shadow(color: .white, radius: isDark ? 0 : 2)
+      Text(title)
+        .font(.comicSans(size: 16))
+        .foregroundStyle(isDark ? .white : .black)
+        .shadow(color: .white, radius: isDark ? 0 : 2)
+        .lineLimit(1)
+    }
+  }
+}
+
 struct ActionButton: View {
   let text: String
   let isDark: Bool
@@ -56,12 +75,12 @@ struct YapsterActivityView: View {
   let context: ActivityViewContext<WidgetAttributes>
   @Environment(\.colorScheme) var colorScheme
   
-  var body: some View {
-    VStack {
-      HStack {
-        VStack(alignment: .leading, spacing: 0) {
-          switch context.state {
-          case let .preGame(startTimeMs, endTimeMs, _):
+  private func contentView() -> some View {
+    switch context.state {
+    case let .preGame(startTimeMs, endTimeMs, title):
+      return VStack {
+        HStack {
+          VStack(alignment: .leading, spacing: 0) {
             Text("game starts in")
               .font(.comicSans(size: 12, weight: .bold))
               .foregroundStyle(.black)
@@ -73,18 +92,26 @@ struct YapsterActivityView: View {
               isDark: false
             )
           }
-        }
-        Spacer()
-        switch context.state {
-        case .preGame:
+          Spacer()
           Image("big-yapster")
             .resizable()
             .aspectRatio(contentMode: .fit)
             .frame(height: 20)
             .padding(.trailing, 12)
         }
+        Spacer()
+        HStack(alignment: .bottom) {
+          TopicDisplay(title: title, isDark: false)
+          Spacer()
+          ActionButton(text: "join game", isDark: false)
+        }
       }
-      Spacer()
+    }
+  }
+  
+  var body: some View {
+    VStack {
+      contentView()
     }
     .frame(maxHeight: .infinity)
     .padding(.top, 18)
@@ -106,6 +133,9 @@ struct YapsterIslandBottom: View {
   
   var body: some View {
     HStack(alignment: .bottom) {
+      TopicDisplay(title: "topic of the day", isDark: true)
+      Spacer()
+      ActionButton(text: "join game", isDark: true)
     }
   }
 }
@@ -141,7 +171,9 @@ struct WidgetLiveActivity: Widget {
           }
         }
         DynamicIslandExpandedRegion(.bottom) {
-          // Your Custom View
+          YapsterIslandBottom(context: context)
+            .padding(.bottom, 5)
+            .padding(.horizontal, 5)
         }
       } compactLeading: {
         switch context.state {
@@ -170,9 +202,9 @@ struct WidgetLiveActivity: Widget {
 }
 
 extension WidgetAttributes {
-    fileprivate static var preview: WidgetAttributes {
-        WidgetAttributes()
-    }
+  fileprivate static var preview: WidgetAttributes {
+    WidgetAttributes()
+  }
 }
 
 extension WidgetAttributes.ContentState {
@@ -186,7 +218,7 @@ extension WidgetAttributes.ContentState {
 }
 
 #Preview("Notification", as: .content, using: WidgetAttributes.preview) {
-   WidgetLiveActivity()
+  WidgetLiveActivity()
 } contentStates: {
   WidgetAttributes.ContentState.preGameState
 }
