@@ -113,7 +113,6 @@ app.use("*", (req: Request, res: Response) => {
 // Start server
 app.listen(PORT, () => {
   console.log(`🚀 Live Activity Server running on http://localhost:${PORT}`);
-  console.log(`📍 Health check: http://localhost:${PORT}/health`);
   console.log(`📱 API base: http://localhost:${PORT}/api/live-activity`);
 
   // Log environment status

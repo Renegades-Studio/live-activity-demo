@@ -64,8 +64,7 @@ export const useLiveActivity = () => {
 
       try {
         console.log("🚀 Starting live activity...");
-        const notification = APNSService.createStartNotification(data);
-        await APNSService.simulateAPNSNotification(notification, startToken);
+        await APNSService.startLiveActivity(startToken, data, __DEV__);
 
         setState((prev) => ({ ...prev, isActive: true }));
 
@@ -105,8 +104,7 @@ export const useLiveActivity = () => {
 
       try {
         console.log("🔄 Updating live activity...");
-        const notification = APNSService.createUpdateNotification(data);
-        await APNSService.simulateAPNSNotification(notification, updateToken);
+        await APNSService.updateLiveActivity(updateToken, data, __DEV__);
 
         console.log("✅ Live activity updated successfully");
       } catch (error) {
@@ -139,8 +137,7 @@ export const useLiveActivity = () => {
 
     try {
       console.log("🛑 Ending live activity...");
-      const notification = APNSService.createEndNotification();
-      await APNSService.simulateAPNSNotification(notification, updateToken);
+      await APNSService.endLiveActivity(updateToken, __DEV__);
 
       setState((prev) => ({ ...prev, isActive: false }));
       setUpdateToken(null);

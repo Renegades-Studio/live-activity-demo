@@ -19,11 +19,14 @@ export async function sendLiveActivityStartNotification({
   );
 
   const notification = new apn.Notification();
-  notification.topic = "com.renegades.liveactivitydemo.push-type.liveactivity";
+  // Set the apns-topic header field using the following format: <your bundleID>.push-type.liveactivity.
+  notification.topic =
+    "xyz.renegades.live-activity-demo.push-type.liveactivity";
   // @ts-ignore - pushType is not in the types but exists
   notification.pushType = "liveactivity";
   notification.priority = 10;
 
+  // JSON payload for the live activity
   const contentState: PreGameContentState = {
     type: "preGame",
     startTimeMs: payload.startTimeMs,

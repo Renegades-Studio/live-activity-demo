@@ -1,116 +1,165 @@
-import type {
-  APNSConfig,
-  APNSNotificationPayload,
-  LiveActivityData,
-  LiveActivityEvent,
-} from "@/types/liveActivity";
+import type { LiveActivityData } from "@/types/liveActivity";
 
 /**
  * APNs Service for Live Activities
- * Handles creation of APNs notification payloads and simulates backend APNs calls
+ * Makes HTTP calls to the local Express server which handles real APNs notifications
  */
 export class APNSService {
-  private static readonly DEFAULT_CONFIG: APNSConfig = {
-    topic: "com.renegades.liveactivitydemo.push-type.liveactivity",
-    pushType: "liveactivity",
-    priority: 10,
-  };
+  private static readonly SERVER_BASE_URL =
+    "http://localhost:3000/api/live-activity";
 
   /**
-   * Creates an APNs notification payload for starting a live activity
+   * Starts a live activity by calling the server
    */
-  static createStartNotification(
-    data: LiveActivityData
-  ): APNSNotificationPayload {
-    return this.createNotificationPayload("start", data, {
-      title: "Live Activity Started!",
-      body: `${data.title} - Check your Dynamic Island`,
-    });
-  }
-
-  /**
-   * Creates an APNs notification payload for updating a live activity
-   */
-  static createUpdateNotification(
-    data: LiveActivityData
-  ): APNSNotificationPayload {
-    return this.createNotificationPayload("update", data, {
-      title: "Live Activity Updated!",
-      body: `${data.title} - Activity has been updated`,
-    });
-  }
-
-  /**
-   * Creates an APNs notification payload for ending a live activity
-   */
-  static createEndNotification(): APNSNotificationPayload {
-    return this.createNotificationPayload(
-      "end",
-      {
-        startTimeMs: 0,
-        endTimeMs: 0,
-        title: "",
-      },
-      {
-        title: "Live Activity Ended",
-        body: "The live activity has been completed",
-      }
-    );
-  }
-
-  /**
-   * Private helper to create notification payload structure
-   */
-  private static createNotificationPayload(
-    event: LiveActivityEvent,
+  static async startLiveActivity(
+    token: string,
     data: LiveActivityData,
-    alert: { title: string; body: string }
-  ): APNSNotificationPayload {
-    return {
-      aps: {
-        timestamp: Math.floor(Date.now() / 1000),
-        event,
-        "attributes-type": "WidgetAttributes",
-        attributes: {
-          type: "preGame",
-          startTimeMs: data.startTimeMs,
-          endTimeMs: data.endTimeMs,
-          title: data.title,
-        },
-        "content-state": {
-          type: "preGame",
-          startTimeMs: data.startTimeMs,
-          endTimeMs: data.endTimeMs,
-          title: data.title,
-        },
-        alert,
+    isSandbox: boolean
+  ): Promise<void> {
+    console.log(
+      `🚀 Starting live activity via server (${
+        isSandbox ? "sandbox" : "production"
+      })...`
+    );
+
+    const response = await fetch(`${this.SERVER_BASE_URL}/start`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    };
+      body: JSON.stringify({
+        token,
+        payload: {
+          startTimeMs: data.startTimeMs,
+          endTimeMs: data.endTimeMs,
+          title: data.title,
+        },
+        isSandbox,
+      }),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(`Server error: ${error.error || "Unknown error"}`);
+    }
+
+    const result = await response.json();
+    console.log("✅ Live activity started:", result.message);
   }
 
   /**
-   * Simulates sending an APNs notification
-   * In production, this would be handled by your backend server
+   * Updates a live activity by calling the server
+   */
+  static async updateLiveActivity(
+    token: string,
+    data: LiveActivityData,
+    isSandbox: boolean
+  ): Promise<void> {
+    console.log(
+      `🔄 Updating live activity via server (${
+        isSandbox ? "sandbox" : "production"
+      })...`
+    );
+
+    const response = await fetch(`${this.SERVER_BASE_URL}/update`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        token,
+        payload: {
+          type: "preGame",
+          startTimeMs: data.startTimeMs,
+          endTimeMs: data.endTimeMs,
+          title: data.title,
+        },
+        isSandbox,
+      }),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(`Server error: ${error.error || "Unknown error"}`);
+    }
+
+    const result = await response.json();
+    console.log("✅ Live activity updated:", result.message);
+  }
+
+  /**
+   * Ends a live activity by calling the server
+   */
+  static async endLiveActivity(
+    token: string,
+    isSandbox: boolean
+  ): Promise<void> {
+    console.log(
+      `🛑 Ending live activity via server (${
+        isSandbox ? "sandbox" : "production"
+      })...`
+    );
+
+    const response = await fetch(`${this.SERVER_BASE_URL}/end`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        token,
+        isSandbox,
+      }),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(`Server error: ${error.error || "Unknown error"}`);
+    }
+
+    const result = await response.json();
+    console.log("✅ Live activity ended:", result.message);
+  }
+
+  /**
+   * Legacy method for backward compatibility
+   * @deprecated Use startLiveActivity, updateLiveActivity, or endLiveActivity instead
    */
   static async simulateAPNSNotification(
-    payload: APNSNotificationPayload,
+    payload: any,
     token: string,
-    config: Partial<APNSConfig> = {}
+    config: any = {}
   ): Promise<void> {
-    const finalConfig = { ...this.DEFAULT_CONFIG, ...config };
-
-    console.log("🚀 SIMULATING APNs NOTIFICATION");
-    console.log("📍 Topic:", finalConfig.topic);
-    console.log("🔐 Token:", token);
-    console.log("📦 Payload:", JSON.stringify(payload, null, 2));
-
-    // Simulate network delay
-    await new Promise((resolve) => setTimeout(resolve, 500));
-
-    console.log("✅ APNs notification would be sent to Apple servers");
-    console.log(
-      "💡 In production, this would be handled by your backend using node-apn or similar"
+    console.warn(
+      "⚠️ simulateAPNSNotification is deprecated. Use specific methods instead."
     );
+
+    const isSandbox = __DEV__; // Legacy method can still use __DEV__
+
+    // Try to determine the action from the payload
+    if (payload.aps?.event === "start") {
+      await this.startLiveActivity(
+        token,
+        {
+          startTimeMs: payload.aps.attributes?.startTimeMs || Date.now(),
+          endTimeMs: payload.aps.attributes?.endTimeMs || Date.now() + 600000,
+          title: payload.aps.attributes?.title || "Live Activity",
+        },
+        isSandbox
+      );
+    } else if (payload.aps?.event === "update") {
+      await this.updateLiveActivity(
+        token,
+        {
+          startTimeMs: payload.aps["content-state"]?.startTimeMs || Date.now(),
+          endTimeMs:
+            payload.aps["content-state"]?.endTimeMs || Date.now() + 600000,
+          title: payload.aps["content-state"]?.title || "Live Activity",
+        },
+        isSandbox
+      );
+    } else if (payload.aps?.event === "end") {
+      await this.endLiveActivity(token, isSandbox);
+    }
   }
 }
 
