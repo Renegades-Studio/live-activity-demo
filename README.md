@@ -60,11 +60,14 @@ PORT=3000
 yarn server
 ```
 
-**Terminal 2 - React Native App:**
+**Terminal 2 - Build & Run App:**
 
 ```bash
-yarn start
-# Press 'i' for iOS simulator
+# Build the app (required for native module compilation)
+npx expo run:ios
+
+# This builds the Live Activity native module and launches the app
+# Note: Use yarn start only for development after initial build
 ```
 
 ### 4. Test Live Activities
