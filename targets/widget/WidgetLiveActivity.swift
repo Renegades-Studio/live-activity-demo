@@ -2,8 +2,14 @@ import ActivityKit
 import WidgetKit
 import SwiftUI
 
+// MARK: - Utilities
+extension Date {
+  static func fromMilliseconds(_ milliseconds: Int64) -> Date {
+    Date(timeIntervalSince1970: TimeInterval(milliseconds) / 1000.0)
+  }
+}
 
-// Common components
+// MARK: - Common Components
 struct TimerDisplay: View {
   let startTimeMs: Int64
   let endTimeMs: Int64
@@ -11,16 +17,16 @@ struct TimerDisplay: View {
   let isDark: Bool
   
   private var startDate: Date {
-    Date(timeIntervalSince1970: TimeInterval(startTimeMs) / 1000.0)
+    Date.fromMilliseconds(startTimeMs)
   }
   
   private var endDate: Date {
-    Date(timeIntervalSince1970: TimeInterval(endTimeMs) / 1000.0)
+    Date.fromMilliseconds(endTimeMs)
   }
   
   var body: some View {
     Text(timerInterval: startDate...endDate, pauseTime: nil, countsDown: true)
-      .foregroundColor(Color(hex: "FFDF2B")!)
+      .foregroundStyle(Color(hex: "FFDF2B")!)
       .font(.comicSans(size: size, weight: .bold))
       .shadow(color: isDark ? Color(hex: "FFDF2B")! : .black, radius: 2)
   }
@@ -69,16 +75,20 @@ struct ActionButton: View {
   }
 }
 
+struct YapsterIcon: View {
+  var body: some View {
+    Image("yapster-round")
+  }
+}
 
-// Main views
+// MARK: - Main Views
 struct YapsterActivityView: View {
   let context: ActivityViewContext<WidgetAttributes>
-  @Environment(\.colorScheme) var colorScheme
   
-  private func contentView() -> some View {
+  private var contentView: some View {
     switch context.state {
     case let .preGame(startTimeMs, endTimeMs, title):
-      return VStack {
+      VStack {
         HStack {
           VStack(alignment: .leading, spacing: 0) {
             Text("game starts in")
@@ -111,7 +121,7 @@ struct YapsterActivityView: View {
   
   var body: some View {
     VStack {
-      contentView()
+      contentView
     }
     .frame(maxHeight: .infinity)
     .padding(.top, 18)
@@ -129,17 +139,40 @@ struct YapsterActivityView: View {
 
 struct YapsterIslandBottom: View {
   let context: ActivityViewContext<WidgetAttributes>
-  @Environment(\.colorScheme) var colorScheme
   
   var body: some View {
-    HStack(alignment: .bottom) {
-      TopicDisplay(title: "topic of the day", isDark: true)
-      Spacer()
-      ActionButton(text: "join game", isDark: true)
+    switch context.state {
+    case let .preGame(_, _, title):
+      HStack(alignment: .bottom) {
+        TopicDisplay(title: title, isDark: true)
+        Spacer()
+        ActionButton(text: "join game", isDark: true)
+      }
     }
   }
 }
 
+struct DynamicIslandTimerView: View {
+  let context: ActivityViewContext<WidgetAttributes>
+  
+  var body: some View {
+    switch context.state {
+    case let .preGame(startTimeMs, endTimeMs, _):
+      if context.isStale {
+        EmptyView()
+      } else {
+        let startDate = Date.fromMilliseconds(startTimeMs)
+        let endDate = Date.fromMilliseconds(endTimeMs)
+        Text(timerInterval: startDate...endDate, pauseTime: nil, countsDown: true)
+          .foregroundStyle(Color(hex: "FFDF2B")!)
+          .font(.comicSans(size: 14, weight: .bold))
+          .frame(maxWidth: 50)
+      }
+    }
+  }
+}
+
+// MARK: - Widget Configuration
 struct WidgetLiveActivity: Widget {
   let kind: String = "Yapster_Widget"
   
@@ -149,26 +182,11 @@ struct WidgetLiveActivity: Widget {
     } dynamicIsland: { context in
       DynamicIsland {
         DynamicIslandExpandedRegion(.leading) {
-          switch context.state {
-          case .preGame:
-            Image("yapster-round")
-              .padding(.leading, 5)
-          }
+          YapsterIcon()
+            .padding(.leading, 5)
         }
         DynamicIslandExpandedRegion(.trailing) {
-          switch context.state {
-          case let .preGame(startTimeMs, endTimeMs, _):
-            if context.isStale {
-              EmptyView()
-            } else {
-              let startDate = Date(timeIntervalSince1970: TimeInterval(startTimeMs) / 1000.0)
-              let endDate = Date(timeIntervalSince1970: TimeInterval(endTimeMs) / 1000.0)
-              Text(timerInterval: startDate...endDate, pauseTime: nil, countsDown: true)
-                .foregroundColor(Color(hex: "FFDF2B"))
-                .font(.comicSans(size: 14, weight: .bold))
-                .frame(maxWidth: 50)
-            }
-          }
+          DynamicIslandTimerView(context: context)
         }
         DynamicIslandExpandedRegion(.bottom) {
           YapsterIslandBottom(context: context)
@@ -176,31 +194,17 @@ struct WidgetLiveActivity: Widget {
             .padding(.horizontal, 5)
         }
       } compactLeading: {
-        switch context.state {
-        case .preGame:
-          Image("yapster-round")
-        }
+        YapsterIcon()
       } compactTrailing: {
-        switch context.state {
-        case let .preGame(startTimeMs, endTimeMs, _):
-          if context.isStale {
-            EmptyView()
-          } else {
-            let startDate = Date(timeIntervalSince1970: TimeInterval(startTimeMs) / 1000.0)
-            let endDate = Date(timeIntervalSince1970: TimeInterval(endTimeMs) / 1000.0)
-            Text(timerInterval: startDate...endDate, pauseTime: nil, countsDown: true)
-              .foregroundColor(Color(hex: "FFDF2B"))
-              .font(.comicSans(size: 14, weight: .bold))
-              .frame(maxWidth: 50)
-          }
-        }
+        DynamicIslandTimerView(context: context)
       } minimal: {
-        Image("yapster-round")
+        YapsterIcon()
       }
     }
   }
 }
 
+// MARK: - Preview Extensions
 extension WidgetAttributes {
   fileprivate static var preview: WidgetAttributes {
     WidgetAttributes()
@@ -217,6 +221,7 @@ extension WidgetAttributes.ContentState {
   }
 }
 
+// MARK: - Previews
 #Preview("Notification", as: .content, using: WidgetAttributes.preview) {
   WidgetLiveActivity()
 } contentStates: {
