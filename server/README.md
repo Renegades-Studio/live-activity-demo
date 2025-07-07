@@ -15,8 +15,8 @@ yarn install
 
 1. Go to [Apple Developer Console](https://developer.apple.com)
 2. Create an **APNs Auth Key** (.p8 file)
-3. Note down your **Key ID** and **Team ID**
-4. Copy the contents of your .p8 file
+3. Download the `.p8` file to your computer
+4. Note down your **Key ID** and **Team ID**
 
 ### 3. Configure Environment
 
@@ -27,16 +27,21 @@ cp env.example .env
 # Edit .env with your credentials
 ```
 
-**Example `.env` file:**
+1. Open your downloaded `.p8` file in a text editor
+2. Copy the entire contents (including BEGIN/END lines)
+3. Paste into your `.env` file:
 
-````env
-# Option 1: Store key content directly (recommended for demo)
+```env
+# Paste your ENTIRE .p8 file contents here (including BEGIN/END lines)
 APN_KEY=-----BEGIN PRIVATE KEY-----
 MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQg...
+(your actual private key content)
+...
 -----END PRIVATE KEY-----
 APN_KEY_ID=ABC123DEF4
 APPLE_TEAM_ID=XYZ789ABC1
 PORT=3000
+```
 
 ### 4. Start the Server
 
@@ -46,7 +51,7 @@ yarn dev
 
 # Or from project root
 yarn server
-````
+```
 
 ## Testing
 
